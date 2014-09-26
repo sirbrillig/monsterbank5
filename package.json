@@ -5,6 +5,7 @@
 	"description": "A RESTful API for D&D Monsters",
 	"dependencies": {
 		"express": "~4.9.5",
-		"restpress": "~0.1.2"
+		"restpress": "~0.1.2",
+		"body-parser": "~1.9.0"
 	}
 }
