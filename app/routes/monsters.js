@@ -1,6 +1,6 @@
 var restpress = require( 'restpress' );
 var monsterRoutes = new restpress( 'monsters' );
-var monsterData = require( '../../app/models/monster' );
+var monsterData = require( '../../app/schemas/monster' );
 
 monsterRoutes.list( function( request, response ) {
 	monsterData.find( function( err, monsters ) {
