@@ -1,6 +1,6 @@
 var restpress = require( 'restpress' );
 var monsterRoutes = new restpress( 'monsters' );
-var monsterData = require( './app/models/monster' );
+var monsterData = require( '../../app/models/monster' );
 
 monsterRoutes.list( function( request, response ) {
 	monsterData.find( function( err, monsters ) {
@@ -26,8 +26,20 @@ monsterRoutes.create( function( request, response ) {
 	if ( request.body.hasOwnProperty( 'description' ) ) monster.description = request.body.description;
 	monster.save( function( err ) {
 		if ( err ) response.send( err );
-		response.json( { message: 'Monster created!' } );
+		response.json( monster );
 	} );
-} );
+});
+
+monsterRoutes.update( function( request, response ) {
+	monsterData.findById( request.params.id, function( err, monster ) {
+		if ( err ) response.send( err );
+		if ( request.body.hasOwnProperty( 'name' ) ) monster.name = request.body.name;
+		if ( request.body.hasOwnProperty( 'description' ) ) monster.description = request.body.description;
+		monster.save( function( err ) {
+			if ( err ) response.send( err );
+			response.json( monster );
+		} );
+	} );
+});
 
 module.exports = monsterRoutes;
