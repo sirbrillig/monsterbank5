@@ -5,14 +5,16 @@ var monsterData = require( '../../app/schemas/monster' );
 monsterRoutes.list( function( request, response ) {
 	monsterData.find( function( err, monsters ) {
 		if ( err ) response.send( err );
-		response.json( monsters );
+		response.json( monsters.map( function( monster ) {
+			return monster.toJSON( { virtuals: true } );
+		} ) );
 	} );
 });
 
 monsterRoutes.get( function( request, response ) {
 	monsterData.findById( request.params.id, function( err, monster ) {
 		if ( err ) response.send( err );
-		response.json( monster );
+		response.json( monster.toJSON( { virtuals: true } ) );
 	} );
 });
 
@@ -22,22 +24,30 @@ monsterRoutes.create( function( request, response ) {
 		return response.send( 'Error: 400: Invalid data.' );
 	}
 	var monster = new monsterData();
-	monster.name = request.body.name;
-	if ( request.body.hasOwnProperty( 'description' ) ) monster.description = request.body.description;
+	var keys = Object.getOwnPropertyNames( monster.schema.paths ).filter( function( key ) {
+		return ( key[0] !== '_' );
+	} );
+	keys.forEach( function( key ) {
+		if ( request.body.hasOwnProperty( key ) ) monster[ key ] = request.body[ key ];
+	} );
 	monster.save( function( err ) {
 		if ( err ) response.send( err );
-		response.json( monster );
+		response.json( monster.toJSON( { virtuals: true } ) );
 	} );
 });
 
 monsterRoutes.update( function( request, response ) {
 	monsterData.findById( request.params.id, function( err, monster ) {
 		if ( err ) response.send( err );
-		if ( request.body.hasOwnProperty( 'name' ) ) monster.name = request.body.name;
-		if ( request.body.hasOwnProperty( 'description' ) ) monster.description = request.body.description;
+		var keys = Object.getOwnPropertyNames( monster.schema.paths ).filter( function( key ) {
+			return ( key[0] !== '_' );
+		} );
+		keys.forEach( function( key ) {
+			if ( request.body.hasOwnProperty( key ) ) monster[ key ] = request.body[ key ];
+		} );
 		monster.save( function( err ) {
 			if ( err ) response.send( err );
-			response.json( monster );
+			response.json( monster.toJSON( { virtuals: true } ) );
 		} );
 	} );
 });

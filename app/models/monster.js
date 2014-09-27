@@ -1,10 +1,15 @@
 module.exports = {
+	getBonusForAbility: function( score ) {
+		return Math.floor( ( score - 10 ) / 2 );
+	},
+
 	getDefaultAbilityAt: function( index ) {
 		var abilityScoreArray = [ 15, 14, 13, 12, 10, 8 ];
 		return abilityScoreArray[ index ];
 	},
 
 	calculateAC: function( armor, dex ) {
+		dex = this.getBonusForAbility( dex );
 		var ac = 10;
 		switch( armor.toLowerCase() ) {
 			case 'padded':
@@ -63,7 +68,7 @@ module.exports = {
 			case 4:
 				return '1/2';
 			default:
-				return level + 4;
+				return level - 4;
 		}
 	},
 
@@ -91,10 +96,12 @@ module.exports = {
 	},
 
 	getHP: function( hitDie, hitDice, con ) {
-		return ( ( hitDice * hitDie ) / hitDice ) + ( con * hitDice );
+		con = this.getBonusForAbility( con );
+		return Math.floor( ( hitDice * ( hitDie / 2 ) ) + ( con * hitDice ) );
 	},
 
 	getAC: function( armor, naturalArmor, shield, dex ) {
+		dex = this.getBonusForAbility( dex );
 		if ( ! armor && ! naturalArmor ) return dex + 10;
 
 		if ( naturalArmor ) return this.calculateAC( naturalArmor, dex );
