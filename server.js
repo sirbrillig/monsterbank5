@@ -5,7 +5,7 @@ var mongoose = require( 'mongoose' );
 
 var port = process.env.PORT || 3000;
 
-var monsters = require( './monsters' );
+var monsters = require( './app/routes/monsters' );
 
 var Settings = require( 'settings' );
 var config = new Settings( require( './config' ) );
