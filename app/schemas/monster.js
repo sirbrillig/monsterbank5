@@ -6,18 +6,18 @@ var MonsterSchema = new Schema({
 	name: String,
 	description: String,
 	created: { type: Date, default: Date.now },
-	level: Number, // CR 0 = level 1, CR 1/8 = level 2, etc.
-	size: String, // one of 'tiny', 'small', 'medium', 'large', 'huge', 'gargantuan'
-	speed: String,
+	level: { type: Number, default: 1 }, // CR 0 = level 1, CR 1/8 = level 2, etc.
+	size: { type: String, default: 'medium' }, // one of 'tiny', 'small', 'medium', 'large', 'huge', 'gargantuan'
+	speed: { type: String, default: '30 ft.' },
 	armor: String, // one of 'padded', 'leather', 'studded leather'... 'splint mail', 'plate mail'
-	shield: Boolean,
+	shield: { type: Boolean, default: false },
 	naturalArmor: String, // same as (and replaces) armor, but will be reported as 'natural armor'
 	resistances: [String],
 	immunities: [String],
 	vulnerabilities: [String],
 	traits: [String],
 	actions: [String],
-	abilityOrder: [String], // each string should be one of 'con', 'str', etc.
+	abilityOrder: { type: [String], default: [ 'str', 'dex', 'con', 'wis', 'int', 'cha' ] }, // each string should be one of 'con', 'str', etc.
 	abilities: {}
 });
 
