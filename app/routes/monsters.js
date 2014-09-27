@@ -42,4 +42,13 @@ monsterRoutes.update( function( request, response ) {
 	} );
 });
 
+monsterRoutes.delete( function( request, response ) {
+	monsterData.remove( {
+		_id: request.params.id
+	}, function( err, monster ) {
+		if ( err ) response.send( err );
+		response.json( monster );
+	} );
+});
+
 module.exports = monsterRoutes;
