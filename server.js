@@ -7,8 +7,9 @@ var port = process.env.PORT || 3000;
 
 var monsters = require( './monsters' );
 
-// TODO: put this in a config file
-var mongodbUri = '';
+var Settings = require( 'settings' );
+var config = new Settings( require( './config' ) );
+var mongodbUri = config.storage.mongodbUri;
 
 mongoose.connect( mongodbUri );
 
