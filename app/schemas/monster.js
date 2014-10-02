@@ -12,6 +12,7 @@ var MonsterSchema = new Schema({
 	armor: String, // one of 'padded', 'leather', 'studded leather'... 'splint mail', 'plate mail'
 	shield: { type: Boolean, default: false },
 	naturalArmor: String, // same as (and replaces) armor, but will be reported as 'natural armor'
+	senses: String,
 	resistances: [String],
 	immunities: [String],
 	vulnerabilities: [String],
