@@ -14,6 +14,10 @@ monsterRoutes.list( function( request, response ) {
 monsterRoutes.get( function( request, response ) {
 	monsterData.findById( request.params.id, function( err, monster ) {
 		if ( err ) response.send( err );
+		if ( ! monster ) {
+			response.statusCode = 404;
+			return response.send( 'Error: 404: Monster not found.' );
+		}
 		response.json( monster.toJSON( { virtuals: true } ) );
 	} );
 });
@@ -39,6 +43,10 @@ monsterRoutes.create( function( request, response ) {
 monsterRoutes.update( function( request, response ) {
 	monsterData.findById( request.params.id, function( err, monster ) {
 		if ( err ) response.send( err );
+		if ( ! monster ) {
+			response.statusCode = 404;
+			return response.send( 'Error: 404: Monster not found.' );
+		}
 		var keys = Object.getOwnPropertyNames( monster.schema.paths ).filter( function( key ) {
 			return ( key[0] !== '_' );
 		} );
@@ -57,6 +65,10 @@ monsterRoutes.delete( function( request, response ) {
 		_id: request.params.id
 	}, function( err, monster ) {
 		if ( err ) response.send( err );
+		if ( ! monster ) {
+			response.statusCode = 404;
+			return response.send( 'Error: 404: Monster not found.' );
+		}
 		response.json( monster );
 	} );
 });
