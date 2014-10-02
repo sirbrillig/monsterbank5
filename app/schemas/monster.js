@@ -48,5 +48,9 @@ MonsterSchema.virtual( 'ac' ).get( function() {
 	return MonsterModel.getAC( this.armor, this.naturalArmor, this.shield, this.abilities.dex );
 });
 
+MonsterSchema.virtual( 'damage' ).get( function() {
+	return MonsterModel.getDamage( this.level );
+});
+
 module.exports = mongoose.model( 'Monster', MonsterSchema );
 

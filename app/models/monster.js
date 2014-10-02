@@ -72,6 +72,21 @@ module.exports = {
 		}
 	},
 
+	getCRNumeric: function( level ) {
+		switch( level ) {
+			case 1:
+				return 0;
+			case 2:
+				return 0.125;
+			case 3:
+				return 0.25;
+			case 4:
+				return 0.5;
+			default:
+				return level - 4;
+		}
+	},
+
 	getHitDie: function( size ) {
 		switch( size.toLowerCase() ) {
 			case 'tiny':
@@ -109,6 +124,10 @@ module.exports = {
 		var ac = this.calculateAC( armor, dex );
 		if ( shield ) ac += 2;
 		return ac;
+	},
+
+	getDamage: function( level ) {
+		return ( this.getCRNumeric( level ) * 6 ) + 1;
 	}
 
 };
