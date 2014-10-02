@@ -1,4 +1,36 @@
 module.exports = {
+	getProficiencyBonus: function( level ) {
+		var cr = this.getCRNumeric( level );
+		var bonus = 0;
+		switch ( true ) {
+			case ( cr < 5 ):
+				bonus = 2;
+			break;
+			case ( cr < 9 ):
+				bonus = 3;
+			break;
+			case ( cr < 13 ):
+				bonus = 4;
+			break;
+			case ( cr < 17 ):
+				bonus = 5;
+			break;
+			case ( cr < 21 ):
+				bonus = 6;
+			break;
+			case ( cr < 25 ):
+				bonus = 7;
+			break;
+			case ( cr < 29 ):
+				bonus = 8;
+			break;
+			case ( cr > 28 ):
+				bonus = 9;
+			break;
+		}
+		return bonus;
+	},
+
 	getBonusForAbility: function( score ) {
 		return Math.floor( ( score - 10 ) / 2 );
 	},
@@ -128,6 +160,10 @@ module.exports = {
 
 	getDamage: function( level ) {
 		return ( this.getCRNumeric( level ) * 6 ) + 1;
+	},
+
+	getAttackBonus: function( level, ability ) {
+		return this.getProficiencyBonus( level ) + this.getBonusForAbility( ability );
 	}
 
 };

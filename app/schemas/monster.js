@@ -52,5 +52,21 @@ MonsterSchema.virtual( 'damage' ).get( function() {
 	return MonsterModel.getDamage( this.level );
 });
 
+MonsterSchema.virtual( 'proficiencyBonus' ).get( function() {
+	return MonsterModel.getProficiencyBonus( this.level );
+});
+
+MonsterSchema.virtual( 'meleeAttackBonus' ).get( function() {
+	return MonsterModel.getAttackBonus( this.level, this.abilities.str );
+});
+
+MonsterSchema.virtual( 'rangedAttackBonus' ).get( function() {
+	return MonsterModel.getAttackBonus( this.level, this.abilities.dex );
+});
+
+MonsterSchema.virtual( 'magicAttackBonus' ).get( function() {
+	return MonsterModel.getAttackBonus( this.level, this.abilities.int );
+});
+
 module.exports = mongoose.model( 'Monster', MonsterSchema );
 
