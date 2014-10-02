@@ -19,6 +19,7 @@ var MonsterSchema = new Schema({
 	vulnerabilities: [String],
 	traits: [String],
 	actions: [String],
+	legendaryActions: [String],
 	abilityOrder: { type: [String], default: [ 'str', 'dex', 'con', 'wis', 'int', 'cha' ] }, // each string should be one of 'con', 'str', etc.
 	abilities: { type: Object, default: {} }
 });
