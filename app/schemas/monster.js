@@ -69,5 +69,29 @@ MonsterSchema.virtual( 'magicAttackBonus' ).get( function() {
 	return MonsterModel.getAttackBonus( this.level, this.abilities.int );
 });
 
+MonsterSchema.virtual( 'strSaveDC' ).get( function() {
+	return MonsterModel.getSaveDC( this.level, this.abilities.str );
+});
+
+MonsterSchema.virtual( 'dexSaveDC' ).get( function() {
+	return MonsterModel.getSaveDC( this.level, this.abilities.dex );
+});
+
+MonsterSchema.virtual( 'conSaveDC' ).get( function() {
+	return MonsterModel.getSaveDC( this.level, this.abilities.con );
+});
+
+MonsterSchema.virtual( 'intSaveDC' ).get( function() {
+	return MonsterModel.getSaveDC( this.level, this.abilities.int );
+});
+
+MonsterSchema.virtual( 'wisSaveDC' ).get( function() {
+	return MonsterModel.getSaveDC( this.level, this.abilities.wis );
+});
+
+MonsterSchema.virtual( 'chaSaveDC' ).get( function() {
+	return MonsterModel.getSaveDC( this.level, this.abilities.cha );
+});
+
 module.exports = mongoose.model( 'Monster', MonsterSchema );
 

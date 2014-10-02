@@ -164,6 +164,10 @@ module.exports = {
 
 	getAttackBonus: function( level, ability ) {
 		return this.getProficiencyBonus( level ) + this.getBonusForAbility( ability );
+	},
+
+	getSaveDC: function( level, ability ) {
+		return 8 + this.getProficiencyBonus( level ) + this.getBonusForAbility( ability );
 	}
 
 };
