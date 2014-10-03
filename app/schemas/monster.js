@@ -3,7 +3,7 @@ var MonsterModel = require( '../models/monster' );
 var Schema = mongoose.Schema;
 
 var MonsterSchema = new Schema({
-	name: String,
+	name: { type: String, unique: true },
 	description: String,
 	created: { type: Date, default: Date.now },
 	level: { type: Number, default: 1 }, // CR 0 = level 1, CR 1/8 = level 2, etc.
