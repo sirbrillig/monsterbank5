@@ -26,7 +26,9 @@ var MonsterSchema = new Schema({
 
 MonsterSchema.pre( 'save', function( next ) {
 	for ( var i = 0; i < 6; i++ ) {
-		this.abilities[ this.abilityOrder[ i ] ] = MonsterModel.getDefaultAbilityAt( i );
+		if ( ! this.abilities[ this.abilityOrder[ i ] ] ) {
+			this.abilities[ this.abilityOrder[ i ] ] = MonsterModel.getDefaultAbilityAt( i );
+		}
 	}
 	next();
 });
