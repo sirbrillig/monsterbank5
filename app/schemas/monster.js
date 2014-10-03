@@ -33,6 +33,14 @@ MonsterSchema.pre( 'save', function( next ) {
 	next();
 });
 
+MonsterSchema.virtual( 'bonuses' ).get( function() {
+	var bonuses = {};
+	Object.keys( this.abilities ).forEach( function( ability ) {
+		bonuses[ ability ] = MonsterModel.getBonusForAbility( this.abilities[ ability ] );
+	}, this );
+	return bonuses;
+});
+
 MonsterSchema.virtual( 'cr' ).get( function() {
 	return MonsterModel.getCR( this.level );
 });
